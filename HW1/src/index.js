@@ -20,4 +20,4 @@ function strPreparation(str) {
     return  format_str.split('').sort().join('');
 }
 
-console.log(chalk.green(anagram(text, 'fkljipppЁ')));
+console.log(chalk.green(anagram('fkljЁippp', 'fkljipppЁ')));
