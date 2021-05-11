@@ -21,9 +21,9 @@ function strPreparation(str) {
 function anagramToFile() {
     const fs = require('fs');
     const path = require('path');
-    const notes = '/Users/Ed/WebstormProjects/untitled/FrameWork/HW1/demo/test/text.txt'
+    const way = '/Users/Ed/WebstormProjects/untitled/FrameWork/HW1/demo/test/text.txt'
 
-    fs.readFile(notes, 'utf-8',(err, content) =>{
+    fs.readFile(way, 'utf-8',(err, content) =>{
         if (err){
             throw err
         }
