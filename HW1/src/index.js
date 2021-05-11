@@ -5,7 +5,6 @@ function anagram(str1, str2) {
     console.log(strPreparation(str1), strPreparation(str2));
     if (strPreparation(str1)===strPreparation(str2)) return true;
     else return false;
-
 }
 
 function strPreparation(str) {
