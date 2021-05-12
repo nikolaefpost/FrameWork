@@ -36,7 +36,7 @@ function anagramToFile() {
             if (err){
                 throw err
             }
-            console.log('file prepared')
+            console.log(chalk.blue('file prepared'))
         })
     })
 }
