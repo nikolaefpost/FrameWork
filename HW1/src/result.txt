@@ -1,2 +1,2 @@
-hello olleh!=>true
-hello hullo=>false
+hello, olleh! => true
+hello, hullo => false

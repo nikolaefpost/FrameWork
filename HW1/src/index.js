@@ -1,7 +1,7 @@
 let chalk = require('chalk');
-const text = require('./data');
+
 function anagram(str) {
-    let sub_str = str.split(' ')
+    let sub_str = str.split(',')
     if (strPreparation(sub_str[0])===strPreparation(sub_str[1])) return true;
     else return false;
 }
@@ -27,14 +27,12 @@ function anagramToFile() {
         if (err){
             throw err
         }
-        let result ='';
-        let cont_arr = content.split('\n')
-        for (let i = 0; i < cont_arr.length; i++) {
-            result += cont_arr[i] + '=>' + anagram(cont_arr[i])+ '\n'
-        }
+        let content_str = content.split(';').reduce((accumulator, currentValue)=> {
+            return accumulator += currentValue + ' => ' + anagram(currentValue);
+        }, '');
 
         const filePath = path.join(__dirname, 'result.txt');
-        fs.writeFile(filePath, result, err =>{
+        fs.writeFile(filePath, content_str, err =>{
             if (err){
                 throw err
             }
