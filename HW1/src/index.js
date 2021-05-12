@@ -2,7 +2,7 @@
 let chalk = require('chalk');
 
 function anagram(str) {
-    let sub_str = str.split(',');
+    let  sub_str = str.split(',');
     if (strPreparation(sub_str[0])===strPreparation(sub_str[1])) return true;
     else return false;
 }
@@ -22,7 +22,8 @@ function strPreparation(str) {
 function anagramToFile() {
     const fs = require('fs');
     const path = require('path');
-    const way = '/Users/Ed/WebstormProjects/untitled/FrameWork/HW1/demo/test/text.txt'
+    const way = path.resolve('demo/test/text.txt')
+    // const way = '/Users/Ed/WebstormProjects/untitled/FrameWork/HW1/demo/test/text.txt'
 
     fs.readFile(way, 'utf-8',(err, content) =>{
         if (err){
