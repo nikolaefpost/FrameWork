@@ -1,7 +1,8 @@
+
 let chalk = require('chalk');
 
 function anagram(str) {
-    let sub_str = str.split(',')
+    let sub_str = str.split(',');
     if (strPreparation(sub_str[0])===strPreparation(sub_str[1])) return true;
     else return false;
 }
