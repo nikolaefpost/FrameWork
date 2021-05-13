@@ -1,3 +1,7 @@
+//https://www.youtube.com/watch?v=3aGSqasVPsI
+//npm i nodemon -D
+//запуск npm run dev
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
