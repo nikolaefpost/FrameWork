@@ -4,14 +4,16 @@
   "description": "node js",
   "main": "HW1/src/index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node app.js",
+    "dev": "nodemon server.js",
+    "dev1": "nodemon HW2/app.js"
   },
   "keywords": [],
   "author": "i",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^4.1.1"
+    "chalk": "^4.1.1",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.5",

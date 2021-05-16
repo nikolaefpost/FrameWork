@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+    <title>REST API</title>
+</head>
+<body>
+<div class="w-3/4 mx-auto p-10 text-center bg-blue-400 mt-10 flex flex-col items-center" id="app" v-cloak>
+    <h2>Registred form</h2>
+    <form class="user_form flex flex-col items-center" data-parsley-validate="" @submit.prevent="createContact">
+        <div class=" m-4 w-auto flex">
+            <label for="name" class="w-20 inline-block ">Name:</label>
+            <input type="text"  class=" border mx-4 px-4 py-1 " name="name" id="name" v-model="form.name">
+        </div>
+
+        <div class="m-4 w-auto flex">
+            <label for="value" class="w-20 inline-block">Value:</label>
+            <input type="text"  class="border mx-4 px-4 py-1 " name="value" id="value"  v-model="form.value" >
+        </div>
+        <input type="submit" class="w-full py-1 rounded bg-gray-300" value="Registrer" :disabled="!canCreate">
+    </form>
+    <div v-if="contacts.length">
+        <div class=" mt-12 border p-5 bg-white" v-for="contact in contacts">
+            <h5 :style="{color: contact.marked ? 'red' : 'black'}">{{contact.name}}</h5>
+            <p>{{contact.value}}</p>
+            <div class="m-3">
+                <input type="button" value="mark" class="px-2 py-1 bg-blue-500 w-24 rounded" @click="markContact(contact.id)" :disabled="contact.marked">
+                <input type="button" value="delete" class="px-2 py-1 bg-red-500 w-24 rounded" @click="removeContact(contact.id)">
+            </div>
+        </div>
+    </div>
+    <p class="pt-8" v-else>No contacts yet</p>
+</div>
+<script type="module" SRC="frontend.js"></script>
+</body>
+</html>
