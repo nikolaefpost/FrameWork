@@ -23,23 +23,28 @@
         </div>
 
         <div class="m-4 w-auto flex">
-            <label for="value" class="w-20 inline-block">Value:</label>
+            <label for="value" class="w-20 inline-block">Phone:</label>
             <input type="text"  class="border mx-4 px-4 py-1 " name="value" id="value"  v-model="form.value" >
         </div>
         <input type="submit" class="w-full py-1 rounded bg-gray-300" value="Registrer" :disabled="!canCreate">
     </form>
-    <div v-if="contacts.length">
+    <div v-if="loading">
+        <loader/>
+    </div>
+    <div v-else-if="contacts.length">
         <div class=" mt-12 border p-5 bg-white" v-for="contact in contacts">
             <h5 :style="{color: contact.marked ? 'red' : 'black'}">{{contact.name}}</h5>
-            <p>{{contact.value}}</p>
+            <p :style="{color: contact.marked ? 'red' : 'black'}">{{contact.value}}</p>
             <div class="m-3">
-                <input type="button" value="mark" class="px-2 py-1 bg-blue-500 w-24 rounded" @click="markContact(contact.id)" :disabled="contact.marked">
+                <input type="button" value="change" class="px-2 py-1 bg-blue-500 w-24 rounded" @click="markContact(contact.id)" :disabled="!canCreate">
                 <input type="button" value="delete" class="px-2 py-1 bg-red-500 w-24 rounded" @click="removeContact(contact.id)">
             </div>
         </div>
     </div>
     <p class="pt-8" v-else>No contacts yet</p>
+
 </div>
+
 <script type="module" SRC="frontend.js"></script>
 </body>
 </html>
