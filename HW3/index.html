@@ -17,7 +17,20 @@
         <div class="w-full h-5 border-black border-t-2 flex justify-around p-1" id="x_coord_rend"></div>
     </div>
 </div>
-<canvas id="myChart" width="400" height="400"></canvas>
+<canvas id="canvas1" width="500" height="500" style="border: 1px solid black;" class="mx-auto bg-gray-300"></canvas>
+<br><br>
+<div class="w-1/2 mx-auto flex  flex-col mb-20">
+    <canvas id="canvas2" width="500" height="500" style="border: 1px solid black;" class="mx-auto bg-gray-300"></canvas>
+    <div  class="text-center">
+        <span class="block mt-12">Legends:</span>
+        <div id="legend"></div>
+    </div>
+</div>
+<input type="button" id="clear" class="w-20 block mx-auto mb-12" value="clear">
+<p class="mx-auto w-40 text-center">place to draw</p>
+<canvas id="canvas3" width="500" height="500" style="border: 1px solid black;" class="mx-auto bg-gray-300"></canvas>
+
+
 
 <script src="index.js"></script>
 </body>
