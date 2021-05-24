@@ -65,7 +65,7 @@ abstract class DrawCharts {
         this.context = context;
         this.data_ = data;
     }
-    abstract draw(data: (string| number)[][]):void;
+    abstract draw(data: [string, number][]):void;
 }
 
 class Schedule extends DrawCharts {
@@ -98,7 +98,7 @@ class Schedule extends DrawCharts {
 
     }
 
-    draw(data):void {
+    draw(data:[string, number][]):void {
 
         let context = this.context;
         let deltaX: number = this.canvas.width/data.length;
@@ -131,7 +131,7 @@ class Schedule extends DrawCharts {
         context.closePath();
     }
 }
-function randomColor(data: (string| number)[][],i:number):string {
+function randomColor(data: [string, number][], i:number):string {
     return `rgb(${Math.floor(255/data.length*i)},${Math.floor(255/data.length*i)}, ${Math.floor(255 - 255/data.length*i)})`;
 }
 
@@ -151,7 +151,7 @@ class PieChart extends DrawCharts{
         this.draw(this.data_);
     }
 
-    draw(data):void {
+    draw(data:[string, number][]):void {
         let context = this.context;
         let start_angle:number = 0;
 
