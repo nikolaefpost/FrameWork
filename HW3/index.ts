@@ -1,7 +1,7 @@
 
 
 
-let data = [
+let data:[string, number][] = [
     ['January', 10000],
     ['February', 3000],
     ['March', 4000],
@@ -16,8 +16,8 @@ function getMaxOfArray(numArray: Array<number>): number {
 
 class BarGraph {
     base: number;
-    data_: Array<object>;
-    constructor(data: (string| number)[][]) {
+    data_: [string, number][];
+    constructor(data: [string, number][]) {
         this.data_ = data;
         this.base = getMaxOfArray(this.data_.map(el=>el[1]));
         let container: HTMLElement|null = document.getElementById('field_rend')
@@ -49,12 +49,12 @@ class BarGraph {
 
 abstract class DrawCharts {
     readonly canvas: HTMLCanvasElement;
-    readonly data_: Array<object>;
+    readonly data_: [string, number][];
     protected base: number;
     readonly context: CanvasRenderingContext2D;
 
 
-    protected constructor(data: (string| number)[][], id_canvas:string) {
+    protected constructor(data: [string, number][], id_canvas:string) {
         let canvas = document.getElementById(id_canvas) as HTMLCanvasElement;
         let context = canvas.getContext('2d');
         context.lineCap = 'round';
@@ -70,7 +70,7 @@ abstract class DrawCharts {
 
 class Schedule extends DrawCharts {
 
-    constructor(data: (string| number)[][], id_canvas:string) {
+    constructor(data: [string, number][], id_canvas:string) {
         super(data, id_canvas);
 
         this.base = getMaxOfArray(this.data_.map(el=>el[1]));
@@ -137,7 +137,7 @@ function randomColor(data: (string| number)[][],i:number):string {
 
 class PieChart extends DrawCharts{
 
-    constructor(data: (string| number)[][], id_canvas:string) {
+    constructor(data: [string, number][], id_canvas:string) {
         super(data, id_canvas);
         this.base = 0;
         let legend: HTMLElement|null = document.getElementById('legend')
@@ -180,8 +180,9 @@ class PieChart extends DrawCharts{
 
 new BarGraph(data);
 new Schedule(data, 'canvas1');
-new PieChart(data, 'canvas2');
+let a:PieChart = new PieChart(data, 'canvas2');
 
+console.log(a.context)
 
 
 
