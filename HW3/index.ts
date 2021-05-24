@@ -163,7 +163,6 @@ class PieChart extends DrawCharts{
             context.beginPath();
             context.font = "16px Verdana";
             context.fillStyle = "white";
-            console.log(Math.floor(this.canvas.height/2 + (200 / 2) * Math.sin(start_angle + slice_angle/2)))
             context.fillText(`${data[i][0]}`, Math.floor(this.canvas.width/2 + (200 / 2) * Math.cos(start_angle + slice_angle/2)), Math.floor(this.canvas.height/2 + (200 / 2) * Math.sin(start_angle + slice_angle/2)));
             context.stroke();
             context.closePath();
