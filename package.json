@@ -12,8 +12,8 @@
   "author": "i",
   "license": "ISC",
   "dependencies": {
+    "anychart": "^8.9.0",
     "chalk": "^4.1.1",
-    "chart.js": "^3.2.1",
     "commonjs": "0.0.1",
     "express": "^4.17.1",
     "uuid": "^8.3.2",

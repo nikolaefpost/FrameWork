@@ -10,6 +10,9 @@
     <title>TypeScript</title>
 </head>
 <body>
+<script>
+    let message = "Hello TypeScript!";
+</script>
 <div class="mx-auto my-20 bg-gray-300 w-1/2 p-12 flex items-end justify-start" >
     <div class="w-5 h-96 border-black border-r-2 flex flex-col justify-between items-end p-1" id="y_coord_rend"></div>
     <div class="flex flex-col w-full">
@@ -17,6 +20,7 @@
         <div class="w-full h-5 border-black border-t-2 flex justify-around p-1" id="x_coord_rend"></div>
     </div>
 </div>
+<div id="container" class="w-1/2 mx-auto h-96 mb-20"></div>
 <canvas id="canvas1" width="500" height="500" style="border: 1px solid black;" class="mx-auto bg-gray-300"></canvas>
 <br><br>
 <div class="w-1/2 mx-auto flex  flex-col mb-20">
@@ -32,6 +36,7 @@
 
 
 
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
 <script src="index.js"></script>
 </body>
 </html>

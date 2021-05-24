@@ -1,4 +1,4 @@
-
+/// <reference path="globals.d.ts" />
 
 
 let data:[string, number][] = [
@@ -181,6 +181,24 @@ class PieChart extends DrawCharts{
 new BarGraph(data);
 new Schedule(data, 'canvas1');
 new PieChart(data, 'canvas2');
+
+
+anychart.onDocumentLoad(function() {
+
+    var chart = anychart.column(data);
+    chart.title("AnyChart BarGraph");
+    chart.container("container").draw();
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
