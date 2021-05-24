@@ -7,7 +7,7 @@ let data = [
     ['March', 4000],
     ['April', 5000],
     ['May', 7000],
-    ['March', 4000]
+    ['June', 4000]
 ]
 
 function getMaxOfArray(numArray: Array<number>): number {
