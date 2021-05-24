@@ -6,7 +6,8 @@ let data = [
     ['February', 3000],
     ['March', 4000],
     ['April', 5000],
-    ['May', 7000]
+    ['May', 7000],
+    ['March', 4000]
 ]
 
 function getMaxOfArray(numArray: Array<number>): number {
@@ -46,23 +47,34 @@ class BarGraph {
     }
 }
 
-class Schedule {
+abstract class DrawCharts {
+    readonly canvas: HTMLCanvasElement;
     readonly data_: Array<object>;
-    readonly base: number;
+    protected base: number;
     readonly context: CanvasRenderingContext2D;
 
-    constructor(data: (string| number)[][]) {
 
-        let canvas = document.getElementById('canvas1') as HTMLCanvasElement;
+    protected constructor(data: (string| number)[][], id_canvas:string) {
+        let canvas = document.getElementById(id_canvas) as HTMLCanvasElement;
         let context = canvas.getContext('2d');
         context.lineCap = 'round';
         context.lineJoin = 'round';
         context.strokeStyle = 'black';
 
+        this.canvas = canvas;
         this.context = context;
         this.data_ = data;
-        this.base = getMaxOfArray(this.data_.map(el=>el[1]));
+    }
+    protected draw(data: (string| number)[][]):void{}
+}
 
+class Schedule extends DrawCharts {
+
+    constructor(data: (string| number)[][], id_canvas:string) {
+        super(data, id_canvas);
+
+        this.base = getMaxOfArray(this.data_.map(el=>el[1]));
+        let context = this.context;
         context.beginPath();
         context.lineWidth = 1;
         context.moveTo(30, 470);
@@ -86,22 +98,22 @@ class Schedule {
 
     }
 
-    draw(data) {
+    draw(data):void {
 
         let context = this.context;
-
+        let deltaX: number = this.canvas.width/data.length;
         for (let i = 0; i < data.length; ++i) {
             context.beginPath();
             context.lineWidth = 3;
             context.setLineDash([2, 0]);
-            context.moveTo(100*i+50, 400-data[i][1]/this.base*400+50);
-            data[i+1]? context.lineTo( 100*(i+1)+50, 400-data[i+1][1]/this.base*400+50): context.lineTo( 100*(i)+50, 400-data[i][1]/this.base*400+50);
+            context.moveTo(deltaX*i+50, 400-data[i][1]/this.base*400+50);
+            data[i+1]? context.lineTo( deltaX*(i+1)+50, 400-data[i+1][1]/this.base*400+50): context.lineTo( deltaX*(i)+50, 400-data[i][1]/this.base*400+50);
             context.stroke();
 
             context.beginPath();
             context.lineWidth = 1;
             context.setLineDash([4, 8]);
-            context.moveTo(100*i+50, 400-data[i][1]/this.base*400+50);
+            context.moveTo(deltaX*i+50, 400-data[i][1]/this.base*400+50);
             context.lineTo( 30, 400-data[i][1]/this.base*400+50);
             context.font = "8px Verdana";
             context.fillText(`${data[i][1]}`, 5, 400-data[i][1]/this.base*400+50);
@@ -110,10 +122,10 @@ class Schedule {
             context.beginPath();
             context.lineWidth = 1;
             context.setLineDash([4, 8]);
-            context.moveTo(100*i+50, 400-data[i][1]/this.base*400+50);
-            context.lineTo( 100*i+50, 470);
+            context.moveTo(deltaX*i+50, 400-data[i][1]/this.base*400+50);
+            context.lineTo( deltaX*i+50, 470);
             context.font = "8px Verdana";
-            context.fillText(`${data[i][0]}`, 100*i+50, 490);
+            context.fillText(`${data[i][0]}`, deltaX*i+50, 490);
             context.stroke();
         }
         context.closePath();
@@ -121,23 +133,10 @@ class Schedule {
 }
 
 
-class PieChart {
-    readonly canvas: HTMLCanvasElement;
-    readonly data_: Array<object>;
-    readonly base: number;
-    readonly context: CanvasRenderingContext2D;
+class PieChart extends DrawCharts{
 
-    constructor(data: (string| number)[][]) {
-
-        let canvas = document.getElementById('canvas2') as HTMLCanvasElement;
-        let context = canvas.getContext('2d');
-        context.lineCap = 'round';
-        context.lineJoin = 'round';
-        context.strokeStyle = 'black';
-
-        this.canvas = canvas;
-        this.context = context;
-        this.data_ = data;
+    constructor(data: (string| number)[][], id_canvas:string) {
+        super(data, id_canvas);
         this.base = 0;
         for (let i = 0; i < data.length; i++) { this.base +=Number(data[i][1]) }
 
@@ -152,7 +151,8 @@ class PieChart {
 
         for (let i = 0; i < data.length; ++i) {
             let slice_angle = 2 * Math.PI * data[i][1]/this.base;
-            let color:string = `rgb(${Math.floor(255/data.length*i)},${Math.floor(255/data.length*i)}, ${Math.floor(255 - 255/data.length*i)})`
+            let color:string = `rgb(${Math.floor(255/data.length*i)},${Math.floor(255/data.length*i)}, ${Math.floor(255 - 255/data.length*i)})`;
+
             context.beginPath();
             context.fillStyle = color;
             context.moveTo(250,250);
@@ -180,8 +180,8 @@ class PieChart {
 }
 
 new BarGraph(data);
-new Schedule(data);
-new PieChart(data);
+new Schedule(data, 'canvas1');
+new PieChart(data, 'canvas2');
 
 
 
