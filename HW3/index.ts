@@ -104,6 +104,7 @@ class Schedule extends DrawCharts {
         let deltaX: number = this.canvas.width/data.length;
         for (let i = 0; i < data.length; ++i) {
             context.beginPath();
+            context.strokeStyle = 'blue';
             context.lineWidth = 3;
             context.setLineDash([2, 0]);
             context.moveTo(deltaX*i+50, 400-data[i][1]/this.base*400+50);
@@ -111,6 +112,7 @@ class Schedule extends DrawCharts {
             context.stroke();
 
             context.beginPath();
+            context.strokeStyle = 'black';
             context.lineWidth = 1;
             context.setLineDash([4, 8]);
             context.moveTo(deltaX*i+50, 400-data[i][1]/this.base*400+50);
@@ -145,7 +147,7 @@ class PieChart extends DrawCharts{
         for (let i = 0; i < data.length; i++) {
             this.base +=Number(data[i][1]) ;
             legendHTML += "<div class='flex justify-center '><span style='display:inline-block;width:40px;margin-right: 10px; margin-bottom: 2px; background-color:"+randomColor(data, i)+
-                ";'>&nbsp;</span> "+"<span style='display:inline-block;width:80px;'>"+data[i][1]+"</span></div>";
+                ";'>&nbsp;</span> "+"<span style='display:inline-block;width:80px;text-align:left;'>"+data[i][0]+"</span></div>";
         }
         legend.innerHTML = legendHTML;
         this.draw(this.data_);
@@ -169,7 +171,7 @@ class PieChart extends DrawCharts{
             context.beginPath();
             context.font = "16px Verdana";
             context.fillStyle = "white";
-            context.fillText(`${data[i][0]}`, Math.floor(this.canvas.width/2 + (200 / 2) * Math.cos(start_angle + slice_angle/2)), Math.floor(this.canvas.height/2 + (200 / 2) * Math.sin(start_angle + slice_angle/2)));
+            context.fillText(`${Math.round(data[i][1]/this.base*100)}%`, Math.floor(this.canvas.width/2 + (200 / 2) * Math.cos(start_angle + slice_angle/2)), Math.floor(this.canvas.height/2 + (200 / 2) * Math.sin(start_angle + slice_angle/2)));
             context.stroke();
             context.closePath();
             context.fill();
@@ -182,15 +184,25 @@ new BarGraph(data);
 new Schedule(data, 'canvas1');
 new PieChart(data, 'canvas2');
 
+// use https://www.anychart.com/ru/
+anychart.onDocumentLoad(function() {
+    var chart = anychart.column(data);
+    chart.title("AnyChart BarGraph");
+    chart.container("container1").draw();
+});
+
+anychart.onDocumentLoad(function() {
+    var chart = anychart.pie(data);
+    chart.title("AnyChart: PieChart");
+    chart.container("container2").draw();
+});
 
 anychart.onDocumentLoad(function() {
 
-    var chart = anychart.column(data);
-    chart.title("AnyChart BarGraph");
-    chart.container("container").draw();
+    var chart = anychart.line(data);
+    chart.title("AnyChart: Schedule");
+    chart.container("container3").draw();
 });
-
-
 
 
 
