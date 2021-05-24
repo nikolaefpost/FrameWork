@@ -180,9 +180,9 @@ class PieChart extends DrawCharts{
 
 new BarGraph(data);
 new Schedule(data, 'canvas1');
-let a:PieChart = new PieChart(data, 'canvas2');
+new PieChart(data, 'canvas2');
 
-console.log(a.context)
+
 
 
 
