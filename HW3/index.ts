@@ -75,7 +75,7 @@ class Schedule extends DrawCharts {
 
         this.base = getMaxOfArray(this.data_.map(el=>el[1]));
         let context = this.context;
-        context.beginPath();
+        context.beginPath();                                     // y-axis drawing
         context.lineWidth = 1;
         context.moveTo(30, 470);
         context.lineTo( 30, 30);
@@ -85,7 +85,7 @@ class Schedule extends DrawCharts {
         context.fill();
         context.stroke();
 
-        context.moveTo(30, 470);
+        context.moveTo(30, 470);                          // x-axis drawing
         context.lineTo( 470, 470);
         context.lineTo( 460, 467);
         context.lineTo( 460, 473);
