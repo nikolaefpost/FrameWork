@@ -65,7 +65,7 @@ abstract class DrawCharts {
         this.context = context;
         this.data_ = data;
     }
-    protected draw(data: (string| number)[][]):void{}
+    abstract draw(data: (string| number)[][]):void;
 }
 
 class Schedule extends DrawCharts {
@@ -131,30 +131,36 @@ class Schedule extends DrawCharts {
         context.closePath();
     }
 }
-
+function randomColor(data: (string| number)[][],i:number):string {
+    return `rgb(${Math.floor(255/data.length*i)},${Math.floor(255/data.length*i)}, ${Math.floor(255 - 255/data.length*i)})`;
+}
 
 class PieChart extends DrawCharts{
 
     constructor(data: (string| number)[][], id_canvas:string) {
         super(data, id_canvas);
         this.base = 0;
-        for (let i = 0; i < data.length; i++) { this.base +=Number(data[i][1]) }
-
+        let legend: HTMLElement|null = document.getElementById('legend')
+        let legendHTML:string='';
+        for (let i = 0; i < data.length; i++) {
+            this.base +=Number(data[i][1]) ;
+            legendHTML += "<div class='flex justify-center '><span style='display:inline-block;width:40px;margin-right: 10px; margin-bottom: 2px; background-color:"+randomColor(data, i)+
+                ";'>&nbsp;</span> "+"<span style='display:inline-block;width:80px;'>"+data[i][1]+"</span></div>";
+        }
+        legend.innerHTML = legendHTML;
         this.draw(this.data_);
     }
 
-    draw(data) {
+    draw(data):void {
         let context = this.context;
         let start_angle:number = 0;
-        let legend: HTMLElement|null = document.getElementById('legend')
-        let legendHTML:string='';
+
 
         for (let i = 0; i < data.length; ++i) {
             let slice_angle = 2 * Math.PI * data[i][1]/this.base;
-            let color:string = `rgb(${Math.floor(255/data.length*i)},${Math.floor(255/data.length*i)}, ${Math.floor(255 - 255/data.length*i)})`;
 
             context.beginPath();
-            context.fillStyle = color;
+            context.fillStyle = randomColor(data, i);
             context.moveTo(250,250);
             context.arc(250, 250, 200, start_angle, start_angle+slice_angle);
             context.stroke();
@@ -168,19 +174,14 @@ class PieChart extends DrawCharts{
             context.closePath();
             context.fill();
             start_angle += slice_angle;
-
-            legendHTML += "<div class='flex justify-center '><span style='display:inline-block;width:40px;margin-right: 10px; margin-bottom: 2px; background-color:"+color+
-                ";'>&nbsp;</span> "+"<span style='display:inline-block;width:80px;'>"+data[i][1]+"</span></div>";
-
-
         }
-        legend.innerHTML = legendHTML;
     }
 }
 
 new BarGraph(data);
 new Schedule(data, 'canvas1');
 new PieChart(data, 'canvas2');
+
 
 
 
