@@ -1,0 +1,25 @@
+version: "3.9"
+
+volumes:
+  data-s3:
+
+networks:
+  backend-networks:
+
+services:
+#  s3-ninja:
+#    image: scireum/s3-ninja:7.0
+#    valumes:
+#      - data-s3:/home/sirius/data
+#    networks:
+#      - backend-network
+#    ports:
+#      - 9444:9000
+
+  node:
+    image: node:16.2.0
+    ports:
+      - 3000:3000
+    volumes:
+      - ./index.js:/index.js
+    command: node index.js
