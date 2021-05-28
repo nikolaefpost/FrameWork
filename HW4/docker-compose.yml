@@ -22,4 +22,5 @@ services:
       - 3000:3000
     volumes:
       - ./index.js:/index.js
+      - ./Public:/Public
     command: node index.js
