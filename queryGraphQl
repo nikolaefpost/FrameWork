@@ -1,0 +1,58 @@
+
+fragment myField on Country {
+   name
+  capital
+  currency
+  languages{
+    native
+    code
+  }
+
+}
+query countries_and_continents(
+  $curr: String!
+  $leng: String = "de"
+  $incl: Boolean = false
+) {
+ continents @include(if: $incl){
+ name
+  countries{
+    name
+    currency
+  }
+}
+  countries (
+  filter: {
+    currency: {
+      eq: $curr
+    }
+  }
+){
+ ...myField
+}
+deutsch:  languages(
+   filter: {
+    code: {
+      eq: $leng
+    }
+  }
+  ){
+    native
+    code
+  }
+  francais:  languages(
+   filter: {
+    code: {
+      eq: "fr"
+    }
+  }
+  ){
+    native
+    code
+  }
+}
+
+// Query Variables
+{
+  "curr":  "EUR"
+}

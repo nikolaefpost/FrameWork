@@ -1,7 +1,7 @@
 version: "3.9"
 
 volumes:
-  data-s3:
+  data-node:
 
 networks:
   backend-networks:
@@ -21,6 +21,9 @@ services:
     ports:
       - 3000:3000
     volumes:
+      - data-node:/node
       - ./index.js:/index.js
       - ./Public:/Public
     command: node index.js
+
+#  docker-compose up (for run)
