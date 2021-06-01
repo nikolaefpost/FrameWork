@@ -1,43 +1,41 @@
-
-
 type User @withSubscription {
-    id: ID!
+    id      : ID!
     username: String! @id @search(by: [regexp])
-    avatar: String
-    status: String
+    avatar  : String
+    status  : String
     contacts: [User] @hasInverse(field: contacts)
-    chats: [Chat] @hasInverse(field: members)
-    active: Boolean! @search
+    chats   : [Chat] @hasInverse(field: members)
+    active  : Boolean! @search
 }
 
 type Chat {
-    id: ID!
-    title: String! @id @search(by: [regexp])
-    members: [User]!
+    id      : ID!
+    title   : String! @id @search(by: [regexp])
+    members : [User!]!
     messages: [Message] @hasInverse(field: fromChat)
 }
 
-type Message @withSubscription {
-    id: ID!
-    content: Content!
-    author: User!
+type Message  @withSubscription {
+    id      : ID!
+    content : Content!
+    author  : User!
     fromChat: Chat!
     postTime: DateTime!
-    read: Boolean! @search
+    read    : Boolean! @search
 }
 
 type Text {
-    id: ID!
+    id  : ID!
     text: String! @search(by: [fulltext])
 }
 
 type File {
-    id: ID!
+    id  : ID!
     path: String!
 }
 
 type FileWithText {
-    id: ID!
+    id  : ID!
     text: String! @search(by: [fulltext])
     path: String!
 }

@@ -7,31 +7,29 @@ volumes:
   data-dgraph:
 
 networks:
-  backend-networks:
+  backend-network:
 
 services:
-    s3-ninja:
-      image: scireum/s3-ninja:7.0.1
-      volumes:
-        - data-s3:/home/sirius/data
-        - data-s3-logs:/home/sirius/logs
-      networks:
-        - backend-networks
-      ports:
-        - 9444:9000
+  s3-ninja:
+    image: scireum/s3-ninja:7.0.1
+    volumes:
+      - data-s3:/home/sirius/data
+      - data-s3-logs:/home/sirius/logs
+    networks:
+      - backend-network
+    ports:
+      - 9444:9000
 
-    dgraph:
-      image: dgraph/standalone:v21.03.0
-
-      volumes:
-        - data-dgraph:/dgraph
-        - ./schema.graphql:/dgraph/schema.graphql
-        - ./Public:/Public
-      networks:
-        - backend-networks
-      ports:
-        - 5080:5080
-        - 6080:6080
-        - 8080:8080
-        - 9080:9080
-        - 8000:8000
+  dgraph:
+    image: dgraph/standalone:v21.03.0
+    volumes:
+      - data-dgraph:/dgraph
+      - ./schema.graphql:/dgraph/schema.graphql
+    networks:
+      - backend-network
+    ports:
+      - 5080:5080
+      - 6080:6080
+      - 8080:8080
+      - 9080:9080
+      - 8000:8000
