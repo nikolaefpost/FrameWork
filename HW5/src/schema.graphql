@@ -1,43 +1,79 @@
-type User @withSubscription {
-    id      : ID!
-    username: String! @id @search(by: [regexp])
-    avatar  : String
-    status  : String
-    contacts: [User] @hasInverse(field: contacts)
-    chats   : [Chat] @hasInverse(field: members)
-    active  : Boolean! @search
+#type User @withSubscription {
+#    id      : ID!
+#    username: String! @id @search(by: [regexp])
+#    avatar  : String
+#    status  : String
+#    contacts: [User] @hasInverse(field: contacts)
+#    chats   : [Chat] @hasInverse(field: members)
+#    active  : Boolean! @search
+#}
+#
+#type Chat {
+#    id      : ID!
+#    title   : String! @id @search(by: [regexp])
+#    members : [User!]!
+#    messages: [Message] @hasInverse(field: fromChat)
+#}
+#
+#type Message  @withSubscription {
+#    id      : ID!
+#    content : Content!
+#    author  : User!
+#    fromChat: Chat!
+#    postTime: DateTime!
+#    read    : Boolean! @search
+#}
+#
+#type Text {
+#    id  : ID!
+#    text: String! @search(by: [fulltext])
+#}
+#
+#type File {
+#    id  : ID!
+#    path: String!
+#}
+#
+#type FileWithText {
+#    id  : ID!
+#    text: String! @search(by: [fulltext])
+#    path: String!
+#}
+#
+#union Content = Text | File | FileWithText
+
+
+type User @secret(field: "pwd"){
+    id: ID!
+    user_name: String! @id @search(by: [regexp])
+    email: String
+    phone: Int!
+    purchases: [Purchase]  @hasInverse(field: buyer)
 }
 
-type Chat {
-    id      : ID!
-    title   : String! @id @search(by: [regexp])
-    members : [User!]!
-    messages: [Message] @hasInverse(field: fromChat)
+type Product{
+    id: ID!
+    vendor_code: Int! @id
+    category: String!  @search(by: [regexp])
+    subcategory: String!  @search(by: [regexp])
+    name: String! @id @search(by: [regexp])
+    quantity: Int!
+    availability: Boolean!
+    price: Float!
+    image_src: String!
 }
 
-type Message  @withSubscription {
-    id      : ID!
-    content : Content!
-    author  : User!
-    fromChat: Chat!
-    postTime: DateTime!
-    read    : Boolean! @search
+type Purchase @withSubscription{
+    id: ID!
+    choose_product: [Product!]!
+    quantity: Int!
+    buyer: User!
+    buyTime: DateTime!
 }
 
-type Text {
-    id  : ID!
-    text: String! @search(by: [fulltext])
+type Basket @withSubscription{
+    id: ID!
+    buyer: User!
+    purchase: [Purchase!]!
+    delivery_address: String!
 }
-
-type File {
-    id  : ID!
-    path: String!
-}
-
-type FileWithText {
-    id  : ID!
-    text: String! @search(by: [fulltext])
-    path: String!
-}
-
-union Content = Text | File | FileWithText
